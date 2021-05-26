@@ -1,5 +1,3 @@
-Before you run your program, read this carefully please:
-
 =============================== Installing packages =====================================================================================================================
 
 A file named requirements.txt is included with the project, run the following command to install packages:
@@ -75,6 +73,3 @@ so if you want to train from 0, just enter an invalid model name or an empty str
 # Note also that if the model saving path specified in arguments exists already, and you train your model, it will override it, somake sure to always save with a new name
 or keep copies of your models.
 ======================================================================================================================================================================
-
-If you have any questions contact me :)
-
