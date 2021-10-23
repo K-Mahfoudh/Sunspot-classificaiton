@@ -20,15 +20,15 @@ def f1_score(ground_truth_list, prediction_list):
 
 
 parser = argparse.ArgumentParser(description="Sunspot classification")
-parser.add_argument("mode", help="TRAIN for training and TEST for testing", type=str, default='TEST')
-parser.add_argument("train_path", help="Path of your training set, can be relative or full, default points to continuum dataset", type=str, default='dataset/continuum/train')
-parser.add_argument("test_path", help="Path of your testing set, can be relative or full, default points to continuum dataset", type=str, default='dataset/continuum/test')
-parser.add_argument("batch_size", help="size of batches", type=int, default=32)
-parser.add_argument("epochs", help="Number of epochs", type=int, default=100)
-parser.add_argument("load_path", help="path to your model", type=str, default='models/model.pth')
-parser.add_argument("save_path",help="path for saving model", type=str, default='models/model.pth')
-parser.add_argument("lr", help="Learning rate", type=float, default=0.0003)
-parser.add_argument("validation_size", help="validation size between 0 and 1", type=float, default=0.2)
+parser.add_argument("-m", "--mode", help="TRAIN for training and TEST for testing", type=str, default='TEST')
+parser.add_argument("-tp", "--train_path", help="Path of your training set, can be relative or full, default points to continuum dataset", type=str, default='dataset/continuum/train')
+parser.add_argument("-ts", "--test_path", help="Path of your testing set, can be relative or full, default points to continuum dataset", type=str, default='dataset/continuum/test')
+parser.add_argument("-b", "--batch_size", help="size of batches", type=int, default=32)
+parser.add_argument("-e", "--epochs", help="Number of epochs", type=int, default=100)
+parser.add_argument("-l", "--load_path", help="path to your model", type=str, default='models/model.pth')
+parser.add_argument("-s", "--save_path",help="path for saving model", type=str, default='models/model.pth')
+parser.add_argument("-lr", "--learning_rate", help="Learning rate", type=float, default=0.0003)
+parser.add_argument("-v", "--validation_size", help="validation size between 0 and 1", type=float, default=0.2)
 
 
 def main(args):
