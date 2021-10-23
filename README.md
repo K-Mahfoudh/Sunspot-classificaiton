@@ -1,7 +1,7 @@
 # Sunspots classification
 
 This project is a computer vision task that aims to perform sunspot groups classification using deep learning
-algorithms. The models are based on a Resnet152 architecture and are fine-tuned in order to classify 2 types of images, Magnetogram and continuum. Each type images is split into 3 classes: Alpha, Beta and BetaX.
+algorithms. The models are based on a Resnet152 architecture and are fine-tuned in order to classify 2 types of images, Magnetogram and continuum. Each type of images is split into 3 classes: Alpha, Beta and BetaX.
 
 ## Installation
 
