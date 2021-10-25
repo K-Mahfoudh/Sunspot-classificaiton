@@ -6,13 +6,18 @@ import torchvision.models as models
 import time
 import sys
 
-# This variable is used to solve unbalance in data, we give weights to each class and add it to our criterion
 
-
-
-# Defining Neural network class
 class Network(nn.Module):
+    """
+    Class containing definition of the neural network.
+    """
     def __init__(self, lr, model_save_path):
+        """
+        Class constructor.
+
+        :param lr: learnign rate to be used in training
+        :param model_save_path: path to be used to save the model
+        """
         super().__init__()
 
         # Loading a pretrained model (If it's lunched for the first time, it will download model parameters first)
@@ -62,15 +67,38 @@ class Network(nn.Module):
 
     # Displaying model layers
     def get_model_details(self):
+        """
+        A helper method used print neural network content (parameters and architecture).
+
+        """
         print(self.model)
 
     # Defining forward propagation method
     def forward(self, data):
+        """
+        Implementation of forward propagation.
+
+        :param data: DataLoader instance containing images to be used in training/ testing
+        :return: the result of forward propagation (logps)
+        """
         x = self.model(data)
         return x
 
     # Training neural network method
     def train_network(self, trainset, validset, epochs):
+        """
+        Method used to train the neural network and calculate the loss and accuracy of training and validation.
+
+        This method contains 2 parts, the first part is training, where we perform forward and back propagation and
+        we update the parameters of the model. Second part is validation, we store parameters that gives the
+        best (minimum) loss. Note that the program will train the model using GPU if it supports cuda, otherwise,
+        it will use CPU.
+
+        :param trainset: dataloader object containing training images
+        :param validset: dataloader object containing validation images
+        :param epochs: integer representing number of training epochs
+        :return: 4 lists containing history of loss and accuracy of both training and validation steps
+        """
         # Setting the optimizer
         self.optimizer = optim.Adam(self.model.fc.parameters(), lr=self.lr)
 
@@ -120,10 +148,10 @@ class Network(nn.Module):
                 self.optimizer.step()
 
                 # Calculating accuracy
-                preds = F.softmax(logits, dim=1)  # Calculating prediction of each class using softmax
-                _, top_class = preds.topk(1, dim=1)  # Getting top predictions and classes with the highest prediction
-                compare = top_class == labels.view(*top_class.shape)  # Comparing predictions to real values (if prediction is correct or not)
-                accuracy = torch.mean(compare.type(torch.FloatTensor))  # Calculating accuracy of Our model
+                preds = F.softmax(logits, dim=1)
+                _, top_class = preds.topk(1, dim=1)
+                compare = top_class == labels.view(*top_class.shape)
+                accuracy = torch.mean(compare.type(torch.FloatTensor))
                 train_accuracy += accuracy
 
                 # Printing train loss (This part is only for printing values on console)
@@ -200,6 +228,11 @@ class Network(nn.Module):
 
     # Defining prediction method
     def predict(self, testset):
+        """
+        A method used to predict the labels of given images, and print accuracy and loss.
+
+        :param testset: dataloader object containing test images.
+        """
         ground_truth_list = []
         prediction_list = []
         # Setting to evaluation mode to disable Normalization and dropout
@@ -244,6 +277,10 @@ class Network(nn.Module):
         return loss, accuracy, ground_truth_list, prediction_list
 
     def load_model(self, model_path):
+        """
+        Loading an existent model using a given path.
+
+        """
         print('Loading model from path: {}'.format(model_path))
         model_dict = torch.load(model_path)
         self.min_valid_loss = model_dict['min_valid_loss']

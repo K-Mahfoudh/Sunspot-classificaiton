@@ -2,9 +2,17 @@ from torchvision import datasets
 
 
 class CustomImageFolder(datasets.ImageFolder):
+    """
+    A custom Image folder that returns in addition to images, the path of each image. This class is used for
+    visualization purposes.
 
-    # Redifinition of __getitem__
+    """
     def __getitem__(self, index):
+        """
+        Redefinition of getitem method.
+
+        :return: a custom ImageFolder containing images paths
+        """
         # Getting original output (images and labels)
         original_output = super().__getitem__(index)
 

@@ -5,7 +5,16 @@ import numpy as np
 
 
 class Data:
+    """
+    Class for managing and preparing data for training, validation and testing phases.
+    """
     def __init__(self, train_path, test_path, batch_size):
+        """
+
+        :param train_path: string representing train set path
+        :param test_path: string representing test set path
+        :param batch_size: batch size to be used in training
+        """
         self.train_path = train_path
         self.test_path = test_path
         self.batch_size = batch_size
@@ -13,6 +22,12 @@ class Data:
         self.test_transform = None
 
     def get_train_valid(self, validation_size):
+        """
+        spliting training data into train and validation sets based on a given validation size (as class attribute).
+
+        :param validation_size: float value between 0 and 1 representing size of validation set
+        :return: dataloader tuple of training and validation sets
+        """
         # Defining transformations
         self.train_transform = transforms.Compose([
             transforms.RandomResizedCrop((224,224)),
@@ -51,6 +66,11 @@ class Data:
         return train_loader, valid_loader
 
     def get_test(self):
+        """
+        loading test set on dataloader object.
+
+        :return: dataloader object containing test set
+        """
         # Defining transformations
         self.test_transform = transforms.Compose([
             transforms.Resize((224,224)),
